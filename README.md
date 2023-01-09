@@ -1,7 +1,7 @@
 # retropie-docker
 Docker resources to run Retropie Install script as a container, and game using Retropie on Linux without the need of dual-boot
 
-Note that it is implicit that you might need to have docker daemon already running, or any additional software that is capable of handling docker images like `podman`(`podman-docker` might also be handy to help with cli sintax) 
+Note that it is implicit that you might need to have docker daemon already running, or any additional software that is capable of handling docker images like `podman`(`podman-docker` might also be handy to help with cli syntax)
 
 # How to build the image
 
@@ -19,7 +19,7 @@ This will build an image that is currently based on Ubuntu LTS 22.04 from offici
         -v /dev/input:/dev/input \
         -v /dev/snd:/dev/snd \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -v /home/nwildner/ROMS/:/home/pi/RetroPie/roms/ \
+        -v /home/$(whoami)/ROMS/:/home/pi/RetroPie/roms/ \
         -v /home/$(whoami)/Retropie/es_input.cfg:/home/pi/.emulationstation/es_input.cfg \
         -v /run/user/$(id -u):/run/user/$(id -u) \
         -v /var/run/dbus:/var/run/dbus \
