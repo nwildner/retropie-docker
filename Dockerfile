@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update \
     && apt-get upgrade \
-    && apt-get install -y --no-install-recommends ca-certificates git lsb-release sudo dialog unzip xmlstarlet gpg gpg-agent iproute2 vim less \
+    && apt-get install -y --no-install-recommends ca-certificates git lsb-release sudo dialog unzip xmlstarlet gpg gpg-agent iproute2 vim less xdg-utils \
     && useradd -d /home/pi -G sudo -m pi \
     && echo "pi ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/pi
 
