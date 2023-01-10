@@ -24,12 +24,13 @@ I'm creating a bunch of dirs here that will be further mapped to critical config
         -v $HOME/Retropie/es_homedir_config/:/home/pi/.emulationstation/ \
         -v $HOME/Retropie/retroarch_autoconfig/:/opt/retropie/configs/all/retroarch/autoconfig/ \
         -v $HOME/Retropie/es_config/:/opt/retropie/configs/all/emulationstation/ \
-        -v /run/user/$(id -u):/run/user/$(id -u) -v /var/run/dbus:/var/run/dbus -v /var/run/docker.sock:/var/run/docker.sock \
-         --device /dev/input --device /dev/snd --privileged retropie-docker bash
+        -v /run/user/$(id -u):/run/user/$(id -u) \
+        -v /var/run/dbus:/var/run/dbus -v /var/run/docker.sock:/var/run/docker.sock \
+        --device /dev/input --device /dev/snd --privileged retropie-docker bash
 
-Replace `COMMAND` with `bash` or `emulationstation` depending on what software you want to run fron inside the container. This might change in the future(check Issues title below) 
+Replace `COMMAND` with `bash` or `emulationstation` depending on what software you want to run fron inside the container. This might change in the future(check Issues title below). The ROMS dir which is passed as an argument to `docker run` should also be configured to a location on your machine that makes sense(holding your Rom files).
 
-** NOTE ** = Before running `emulationstation` for the first time, reset the controller config otherwise, the `retroarch` mapping file won't be created inside `/opt/retropie/configs/all/retroarch/autoconfig/`
+**NOTE** = Before running `emulationstation` for the first time, reset the controller config otherwise, the `retroarch` mapping file won't be created inside `/opt/retropie/configs/all/retroarch/autoconfig/`
 
     $ cd Retropie-Setup
     $ sudo ./retropie_setup.sh
