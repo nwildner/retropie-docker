@@ -3,6 +3,8 @@ Docker resources to run Retropie Install script as a container, and game using R
 
 Note that it is implicit that you might need to have docker daemon already running, or any additional software that is capable of handling docker images like `podman`(`podman-docker` might also be handy to help with cli syntax)
 
+Install the `xhost` command on your desktop as well.
+
 # How to build the image
 
     git clone --depth=1 https://github.com/nwildner/retropie-docker.git
@@ -21,11 +23,10 @@ These are pretty much the places you need to keep on your home directory after k
 
 To run:
 
-    $ xhost local:docker
     $ chmod +x cmd.sh
     $ ./cmd.sh
 
-If you have first started EmulationStation, it will clean-up all controller config data as per `entrypoint.sh`. After that, EmulationStation will be launched
+If you have first started EmulationStation, it will clean-up all controller config data as per `entrypoint.sh`. After that, EmulationStation will be launched. `cmd.sh` script will also set the permissions for the docker process to access X with the `xhost` utility.
 
 # Currently known issues
 

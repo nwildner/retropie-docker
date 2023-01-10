@@ -1,4 +1,5 @@
 #!/bin/bash
+xhost local:docker
 docker run -it --rm -e XDG_RUNTIME_DIR  -e DBUS_SESSION_BUS_ADDRESS \
 	-e DISPLAY=unix$DISPLAY \
 	-v /dev/bus:/dev/bus -v /dev/input:/dev/input \
