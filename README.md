@@ -13,20 +13,29 @@ This will build an image that is currently based on Ubuntu LTS 22.04 from offici
 
 # Running a container instance of this image
 
+I'm creating a bunch of dirs here that will be further mapped to critical configuration directories inside the container so, this configuration can persist across rebots
+
+    $ cd ~
+    $ mkdir -p Retropie/{es_config,es_homedir_config,retroarch_autoconfig}
     $ xhost local:docker
-    $ docker run -it -e XDG_RUNTIME_DIR  -e DBUS_SESSION_BUS_ADDRESS -e DISPLAY=unix$DISPLAY \
-        -v /dev/bus:/dev/bus \
-        -v /dev/input:/dev/input \
-        -v /dev/snd:/dev/snd \
-        -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -v /home/$(whoami)/ROMS/:/home/pi/RetroPie/roms/ \
-        -v /home/$(whoami)/Retropie/es_input.cfg:/home/pi/.emulationstation/es_input.cfg \
-        -v /run/user/$(id -u):/run/user/$(id -u) \
-        -v /var/run/dbus:/var/run/dbus \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        --device /dev/input --device /dev/snd --privileged retropie-docker COMMAND
+    $ docker run -it --rm -e XDG_RUNTIME_DIR  -e DBUS_SESSION_BUS_ADDRESS -e DISPLAY=unix$DISPLAY \
+        -v /dev/bus:/dev/bus -v /dev/input:/dev/input -v /dev/snd:/dev/snd  -v /tmp/.X11-unix:/tmp/.X11-unix \
+        -v $HOME/ROMS/:/home/pi/RetroPie/roms/ \
+        -v $HOME/Retropie/es_homedir_config/:/home/pi/.emulationstation/ \
+        -v $HOME/Retropie/retroarch_autoconfig/:/opt/retropie/configs/all/retroarch/autoconfig/ \
+        -v $HOME/Retropie/es_config/:/opt/retropie/configs/all/emulationstation/ \
+        -v /run/user/$(id -u):/run/user/$(id -u) -v /var/run/dbus:/var/run/dbus -v /var/run/docker.sock:/var/run/docker.sock \
+         --device /dev/input --device /dev/snd --privileged retropie-docker bash
 
 Replace `COMMAND` with `bash` or `emulationstation` depending on what software you want to run fron inside the container. This might change in the future(check Issues title below) 
+
+** NOTE ** = Before running `emulationstation` for the first time, reset the controller config otherwise, the `retroarch` mapping file won't be created inside `/opt/retropie/configs/all/retroarch/autoconfig/`
+
+    $ cd Retropie-Setup
+    $ sudo ./retropie_setup.sh
+        Configuration / Tools
+        emulationstation
+        Clear/Reset Emulation Station input configuration
 
 The line that maps `es_input.cfg` on the container was set to accelerate Emulationstation start and avoid asking for controller configuration since, Retropie still relies on the player setting up the controller for the first time, unlike Batocera or Recalbox...
 
