@@ -4,7 +4,7 @@ MAINTAINER nwildner
 #Install packages needed and create pi user
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update \
-    && apt-get upgrade \
+    && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends ca-certificates git lsb-release sudo dialog unzip xmlstarlet gpg gpg-agent iproute2 vim xdg-utils \
     && useradd -d /home/pi -G sudo -m pi \
     && usermod -aG adm,dialout,cdrom,sudo,audio,video,plugdev,games,users pi \
