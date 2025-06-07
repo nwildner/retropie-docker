@@ -1,5 +1,5 @@
-FROM ubuntu:20.04
-MAINTAINER nwildner
+FROM ubuntu:24.04
+LABEL org.opencontainer.image.authors="nwildner"
 
 #Install packages needed and create pi user
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
